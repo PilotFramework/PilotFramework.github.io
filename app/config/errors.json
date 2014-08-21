@@ -1,0 +1,12 @@
+{
+    "template": {
+        "unspecified_template": {
+            "message": "When rendering a template please make sure you specifiy the template parameter."
+        }
+    },
+    "assets": {
+    	"unspecified_location": {
+    		"message": "When using asset.add() make sure you set the location parameter so the asset can be found and loaded."
+    	}
+    }
+}
