@@ -1,5 +1,7 @@
 define(['vendor/pilot/model'], function(Model) {
 
-	return new Model('user');
+	var UserModel = new Model('question');
+
+	return UserModel;
 
 });

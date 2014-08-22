@@ -1,7 +1,7 @@
 define([
-	'vendor/pilot/router',
-	'app/controllers/home',
-	'app/controllers/account',
+	'router',
+	'controller/home',
+	'controller/account',
 ], function(router, home, account) {
 	
 	return function() {
@@ -15,7 +15,7 @@ define([
 		 * 	---- ROUTES ----
 		 *
 		 * 	Your routes go here, defined like so:
-		 * 	Router.controller([array, of, routes], controllerinstance);
+		 * 	Router.controller([array, of, routes], controllerInstance);
 		 *
 		 */
 

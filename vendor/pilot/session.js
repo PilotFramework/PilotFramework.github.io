@@ -1,7 +1,8 @@
-define(['jquery', 'config', 'storage'], function($, Config, Storage) {
+define(['jquery', 'storage'], function($, Storage) {
 
 	return {
 		token: (Storage.get('token')) ? Storage.get('token') : false,
+		url: 'http://localhost/api/public/',
 
 		getToken: function() {
 			return this.token;
@@ -10,27 +11,21 @@ define(['jquery', 'config', 'storage'], function($, Config, Storage) {
 		authenticate: function(username, password, callback, error_callback) {
 			var instance = this;
 
-			// Now we'll get the API configuration so we know where to go to
-			// process the request.
-			Config.get('api', function(ApiConfig) {
+			// Hit the auth endpoint.
+			$.post(this.url + 'auth/login', {username: username, password: password}, function(data) {
+				
+				// If there's an error send it to our error handler.
+				if(data.status_code !== 200) {
+					if(error_callback)
+						error_callback(data);
+				}
 
-				// Hit the auth endpoint.
-				$.post(ApiConfig.url + 'user/auth', {username: username, password: password}, function(data) {
-					
-					// If there's an error send it to our error handler.
-					if(data.status_code !== 200) {
-						if(error_callback)
-							error_callback(data);
-					}
+				// Otherwise proceed with the authentication.
+				else {
+					instance.authSuccess(data.api_key, callback);
+				}
 
-					// Otherwise proceed with the authentication.
-					else {
-						instance.authSuccess(data.api_key, callback);
-					}
-
-				}, 'json');
-
-			});
+			}, 'json');
 		},
 
 		setToken: function(token) {
